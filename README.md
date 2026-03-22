@@ -1,4 +1,6 @@
-# 🔗 SnipLink - Premium URL Shortener with Real-Time Analytics
+# 🔗 SnipLink | Smart URL Shortener
+
+App live on https://snip-link-online.vercel.app
 
 ### Project Overview
 SnipLink is a high-performance, full-stack URL shortening platform built for the modern web. It enables users to create personalized short links, track global traffic in real-time, and manage their digital identity with a premium, high-contrast interface. Designed with a "User-First" philosophy, it balances powerful analytics with a sleek, intuitive dashboard.
