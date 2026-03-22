@@ -80,8 +80,9 @@ const Analytics = () => {
   }, [id, fetchAnalytics]);
 
   const handleCopy = () => {
-    const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-    navigator.clipboard.writeText(`${backendUrl}/${data.url.shortCode}`);
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+    const baseUrl = apiUrl.replace(/\/api\/?$/, ''); // Strip /api to get the root domain
+    navigator.clipboard.writeText(`${baseUrl}/${data.url.shortCode}`);
     toast.success('Link copied!');
   };
 
@@ -149,8 +150,9 @@ const Analytics = () => {
   }
 
   const { url, analytics } = data;
-  const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-  const shortUrl = `${backendUrl}/${url.shortCode}`;
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+  const baseUrl = apiUrl.replace(/\/api\/?$/, ''); // Strip /api to get the root domain
+  const shortUrl = `${baseUrl}/${url.shortCode}`;
 
   return (
     <div className="analytics-page">
