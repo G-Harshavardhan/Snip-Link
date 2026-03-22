@@ -143,7 +143,7 @@ npm run dev
 ---
 
 ## 📽️ Project Demonstration
-Explanatory video link : https://www.loom.com/share/f7ff5e1fe17b47a381bcddb8612fb687
+Explanatory video link : https://www.loom.com/share/3dc988a68667477e9467e7307942bef4
 
 ---
 
