@@ -12,11 +12,28 @@ const redirectRoute = require('./routes/redirect');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// 1. CORS - MUST BE FIRST
+console.log('--- SYSTEM CHECK ---');
+console.log('PORT:', PORT);
+console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'PRESENT' : 'MISSING');
+console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'PRESENT' : 'MISSING');
+console.log('CLIENT_URL:', process.env.CLIENT_URL || 'NOT SET (using defaults)');
+
+process.on('uncaughtException', (err) => {
+  console.error('CRITICAL: Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('CRITICAL: Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+console.log('--- BACKEND PULSE: Starting SnipLink Server ---');
+
+// 1. CORS - Absolute Priority
 app.use(cors({
-  origin: true, // Reflect the request origin back to ensure it always matches
+  origin: true,
   credentials: true
 }));
+app.options('*', cors()); // Explicitly handle preflight for ALL routes
 
 // Create HTTP server for WebSockets (using the same CORS logic)
 const httpServer = createServer(app);
