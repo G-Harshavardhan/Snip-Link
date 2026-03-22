@@ -8,9 +8,19 @@ const getHeaders = () => {
 };
 
 const handleResponse = async (res) => {
-  const data = await res.json();
+  const contentType = res.headers.get('content-type');
+  let data;
+  
+  if (contentType && contentType.includes('application/json')) {
+    data = await res.json();
+  } else {
+    // Handle non-JSON responses (like 502 HTML pages)
+    const text = await res.text();
+    throw new Error(`Server error (${res.status}): Please check if the backend is running and healthy.`);
+  }
+
   if (!res.ok) {
-    const errorMsg = data.details?.[0]?.message || data.error || 'Something went wrong';
+    const errorMsg = data?.details?.[0]?.message || data?.error || 'Something went wrong';
     throw new Error(errorMsg);
   }
   return data;
