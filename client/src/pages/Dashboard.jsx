@@ -112,8 +112,9 @@ const Dashboard = () => {
   };
 
   const getShortUrl = (url) => {
-    const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-    return `${backendUrl}/${url.shortCode}`;
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+    const baseUrl = apiUrl.replace(/\/api\/?$/, ''); // Strip /api to get the root domain
+    return `${baseUrl}/${url.shortCode}`;
   };
 
   return (
