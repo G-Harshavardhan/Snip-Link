@@ -7,7 +7,7 @@ const getHeaders = () => {
   return headers;
 };
 
-const handleResponse = async (res) => {
+const handleResponse = async (res, url) => {
   const contentType = res.headers.get('content-type');
   let data;
   
@@ -16,6 +16,7 @@ const handleResponse = async (res) => {
   } else {
     // Handle non-JSON responses (like 502 HTML pages)
     const text = await res.text();
+    console.error(`[API Error] Non-JSON response from ${url}:`, text.substring(0, 200));
     throw new Error(`Server error (${res.status}): Please check if the backend is running and healthy.`);
   }
 
@@ -28,8 +29,15 @@ const handleResponse = async (res) => {
 
 export const api = {
   // Auth
-  signup: (body) =>
-    fetch(`${API_URL}/api/auth/signup`, { method: 'POST', headers: getHeaders(), body: JSON.stringify(body) }).then(handleResponse),
+  signup: (body) => {
+    const url = `${API_URL}/api/auth/signup`;
+    return fetch(url, { method: 'POST', headers: getHeaders(), body: JSON.stringify(body) })
+      .then(res => handleResponse(res, url))
+      .catch(err => {
+        console.error(`[Fetch Failure] URL: ${url}`, err);
+        throw err;
+      });
+  },
 
   login: (body) =>
     fetch(`${API_URL}/api/auth/login`, { method: 'POST', headers: getHeaders(), body: JSON.stringify(body) }).then(handleResponse),
