@@ -64,18 +64,32 @@ graph TD
 
 ---
 
-## 🧠 AI Planning & Workflow Documentation
+## 🧠 Complete AI Planning & Workflow Document
 
-This project was developed using a state-of-the-art **Agentic AI Workflow**:
+This project was developed using a systematic, multi-phase **Agentic AI Workflow** designed to ensure architectural integrity, UI excellence, and production-grade reliability.
 
-1. **Initial Requirement Mapping**: Distilled the Hackathon problem statement into core functional requirements (Auth, CRUD, Analytics).
-2. **Design Tokenization**: Established a central CSS variable system (`index.css`) to allow for seamless Light/Dark theme switching from the ground up.
-3. **Iterative Feature Sprinting**:
-    - **Sprint A**: Core Link CRUD + Redirection engine.
-    - **Sprint B**: Analytics engine with IP resolution and User-Agent parsing.
-    - **Sprint C**: Real-time layer via Socket.IO rooms for per-user isolation.
-4. **Professionalism Pass**: Automated audits to remove debug logs, standardize date formats (DD-MM-YYYY), and verify cross-device compatibility.
-5. **High-Contrast Polish**: Targetted UI refinements to ensure structural symmetry and "OLED" pure-black backgrounds in Dark Mode.
+### Phase 1: Research & Requirement Synthesis
+- **Objective**: Deconstruct the Hackathon problem statement into technical specifications.
+- **Analysis**: Identified 4 core pillars: Secure Auth, State-managed URL CRUD, Real-time Analytics, and Premium UI.
+- **Outcome**: A prioritized feature backlog ensuring all mandatory requirements were addressed before secondary polish.
+
+### Phase 2: Architectural Blueprinting
+- **Design System**: Established a CSS variable-driven design system (`index.css`) to support native Light/Dark theme switching without code duplication.
+- **Data Modeling**: Designed a 3-table PostgreSQL schema (User, URL, Click) with Prisma to ensure type-safety and efficient relational queries.
+- **Socket Isolation**: Planned a Room-based Socket.IO architecture to ensure users only receive real-time updates for their own links.
+
+### Phase 3: Recursive Implementation Sprints
+- **Sprint 1 (Auth & Foundation)**: Built the JWT backend and basic registration/login flows.
+- **Sprint 2 (Core Engine)**: Developed the nanoid-based shortening logic and the asynchronous redirection controller.
+- **Sprint 3 (Real-Time Analytics)**: Integrated `geoip-lite` for IP resolution and Socket.IO for live dashboard heartbeats.
+- **Sprint 4 (Bulk & UX)**: Implemented CSV parsing (Papaparse) and the animated tabbed interface.
+
+### Phase 4: Production-Grade Hardening
+- **Verification**: Conducted systematic browser-based testing for high-contrast visibility and cross-browser compatibility.
+- **Optimization**: Standardized all dates to `DD-MM-YYYY` and performed a "human-quality" code audit to ensure clean, readable, and comment-free source files.
+- **Deployment Resilience**: Hardened the API utility to handle infrastructure-level errors (502/504) and integrated automatic database migrations into the deployment pipeline.
+
+---
 
 ---
 
@@ -129,9 +143,8 @@ npm run dev
 ---
 
 ## 📽️ Project Demonstration
-[**Watch the Explanation & Demo Video Here**](https://youtube.com/your-demo-link)
+Explanatory video link : 
 
 ---
-<p align="center">
-This project is a part of a hackathon run by https://katomaran.com
-</p>
+
+<p align="center"> This project is a part of a hackathon run by https://katomaran.com </p>
