@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const RAW_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+// Automatically strip trailing /api to prevent /api/api duplication in fetch calls
+const API_URL = RAW_API_URL.replace(/\/api\/?$/, '');
 
 const getHeaders = () => {
   const headers = { 'Content-Type': 'application/json' };
