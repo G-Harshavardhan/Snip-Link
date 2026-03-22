@@ -10,26 +10,19 @@ const urlRoutes = require('./routes/urls');
 const redirectRoute = require('./routes/redirect');
 
 const app = express();
-const PORT = process.env.PORT || 5001; // Explicitly map to 5001
+const PORT = process.env.PORT || 5001;
 
-// Create HTTP server for WebSockets
+// 1. CORS - MUST BE FIRST
+app.use(cors({
+  origin: true, // Reflect the request origin back to ensure it always matches
+  credentials: true
+}));
+
+// Create HTTP server for WebSockets (using the same CORS logic)
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        process.env.CLIENT_URL,
-        'http://localhost:5173',
-        'http://localhost:5174',
-        'http://127.0.0.1:5173',
-        'http://127.0.0.1:5174'
-      ];
-      if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app') || origin.endsWith('.up.railway.app')) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: true,
     methods: ['GET', 'POST'],
     credentials: true
   }
@@ -45,32 +38,14 @@ io.on('connection', (socket) => {
 // Mount socket globally
 app.set('io', io);
 
-// Rate limiting
+// 2. Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   message: { error: 'Too many requests, please try again later.' }
 });
 
-// Middleware
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'http://localhost:5173',
-  'http://localhost:5174',
-  'http://127.0.0.1:5173',
-  'http://127.0.0.1:5174'
-];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app') || origin.endsWith('.up.railway.app')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
+// 3. Other Middleware
 app.use(express.json());
 app.use('/api/', limiter);
 
@@ -83,7 +58,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/urls', urlRoutes);
 
-// Redirect route (must be last - catches /:shortCode)
+// Redirect route
 app.use('/', redirectRoute);
 
 // Global error handler
